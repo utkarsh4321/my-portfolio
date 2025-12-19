@@ -1,0 +1,67 @@
+---
+
+type BlogPost = {
+    title: string;
+    description: string;
+    url: string;
+    published_at: string;
+};
+import Layout from "../layouts/Layout.astro";
+const blogUrl = 'https://dev.to/api/articles?username=utkarsh4321';
+const response = await fetch(blogUrl);
+const blogPosts: BlogPost[] = await response.json();
+---
+
+
+
+<Layout>
+     <h5>Welcome to my blog page!</h5>
+     <section id="blog-posts">
+     {blogPosts.length > 0 ? blogPosts.map(post => (
+        <article>
+            <h2><a href={post.url} target="_blank" rel="noopener noreferrer">{post.title}</a></h2>
+            <p>Published on: {new Date(post.published_at).toLocaleDateString()}</p>
+            <p>{post.description}</p>
+        </article>
+     )) : <p>No blog posts found.=</p>}
+     </section>
+
+     <script>
+type BlogPost = {
+    title: string;
+    description: string;
+    url: string;
+    published_at: string;
+};
+        const blogUrl = 'https://dev.to/api/articles?username=utkarsh4321';
+    // Function to fetch and render blog posts
+    async function loadBlogPosts() {
+      try {
+        const response = await fetch(blogUrl); // Your API endpoint
+        if (!response.ok) throw new Error('Failed to fetch');
+
+        const blogPosts: BlogPost[] = await response.json();
+        const container = document.getElementById('blog-posts');
+
+        if (container && blogPosts.length > 0) {
+          container.innerHTML = blogPosts.map(post => `
+            <article>
+              <h2><a href="${post.url}" target="_blank" rel="noopener noreferrer">${post.title}</a></h2>
+              <p>${post.description}</p>
+              <time>${new Date(post.published_at).toLocaleDateString()}</time>
+            </article>
+          `).join('');
+        }
+      } catch (error) {
+        console.error('Blog fetch error:', error);
+        document.getElementById('blog-posts')!.innerHTML = '<p>Failed to load posts.</p>';
+      }
+    }
+
+    // Run on initial load AND after every client-side navigation to this page
+    document.addEventListener('astro:page-load', loadBlogPosts);
+
+    // Optional: Run immediately if needed (in case event already fired)
+    loadBlogPosts();
+  </script>
+</Layout>
