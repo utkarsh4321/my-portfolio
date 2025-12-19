@@ -15,7 +15,6 @@ const blogPosts: BlogPost[] = await response.json();
 
 
 <Layout>
-     <h5>Welcome to my blog page!</h5>
      <section id="blog-posts">
      {blogPosts.length > 0 ? blogPosts.map(post => (
         <article>
