@@ -18,14 +18,16 @@ const blogPosts: BlogPost[] = await response.json();
      <section id="blog-posts" class="posts-list">
      {blogPosts.length > 0 ? blogPosts.map(post => (
         <article>
-              <h2><a href="${post.url}" target="_blank" rel="noopener noreferrer">${post.title}</a></h2>
-              <p>${post.description}</p>
-              <time>${new Date(post.published_at).toLocaleDateString()}</time>
+              <h2><a href={post.url} target="_blank" rel="noopener noreferrer">{post.title}</a></h2>
+              <p>{post.description}</p>
+              <time>{new Date(post.published_at).toLocaleDateString()}</time>
             </article>
-     )) : <p>No blog posts found.=</p>}
+     )) : <p>No blog posts found.</p>}
      </section>
 
-     <script>
+  
+</Layout>
+   <script>
 type BlogPost = {
     title: string;
     description: string;
@@ -63,8 +65,6 @@ type BlogPost = {
     // Optional: Run immediately if needed (in case event already fired)
     loadBlogPosts();
   </script>
-</Layout>
-
 
 <style>
   .posts-list{
