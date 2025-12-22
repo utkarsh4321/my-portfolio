@@ -3,7 +3,68 @@
 
 <nav>
     <ul>
-        <li><a href="/">About</a></li>
-        <li><a href="/blog">Blog</a></li>
+        <li><a href="/" class="nav-link">About</a></li>
+        <li><a href="/blog" class="nav-link">Blog</a></li>
     </ul>
 </nav>
+
+
+
+
+<script>
+    
+    function setActiveLink() {
+        const links = document.querySelectorAll('nav ul li a');
+        const pathname = window.location.pathname;
+        
+        // Normalize paths: ensure '/' matches exactly, and remove trailing slashes for comparison
+        const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+
+        links.forEach(link => {
+            let href = link.getAttribute('href');
+            if (!href) return;
+
+            // Normalize href too
+            const normalizedHref = href === '/' ? '/' : href.replace(/\/$/, '');
+
+            // Add 'active' if paths match
+            link.classList.toggle('active', normalizedHref === normalizedPath);
+        });
+    }
+
+    // Run on initial page load
+    setActiveLink();
+
+    // Critical: Re-run after every view transition
+    document.addEventListener('astro:after-swap', setActiveLink);
+
+    // Optional but recommended: Run when the page is fully loaded/swapped
+    document.addEventListener('astro:page-load', setActiveLink);
+</script>
+
+
+<style>
+    nav {
+        margin-bottom: 2rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        gap: 1rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        font-weight: bold;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+    a.active {
+        color: #3b82f6;
+    }
+   
+</style>

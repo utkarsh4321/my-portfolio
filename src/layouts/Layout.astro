@@ -10,19 +10,41 @@ import Header from "../components/Header.astro"
 		<CommonHead/>
 	</head>
 	<body>
-	 <Header/>
-	 <main transition:animate="none">
-
-		 <slot />
-	 </main>
+	<div class="app-container">
+		<Header/>
+		<main transition:animate="none">
+			<slot />
+		</main>
+	</div>
 	</body>
 </html>
 
 <style>
+	@font-face {
+  font-family: 'inter'; /* Your chosen name */
+  src: url('fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype'); /* Path to your TTF */
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Optional: improves loading behavior */
+  
+}
 	html,
 	body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		font-family: 'inter', sans-serif;
+		background-color: #f8f8f8;
+		color:#1f2937;
+	}
+	
+	.app-container {
+		max-width: 48rem;
+		margin: 0 auto;
+		padding: 4rem 2rem;
+	}
+	@media screen and (min-width: 768px) {
+		body {
+			padding-bottom: 4rem;
+		}
+		
 	}
 </style>
