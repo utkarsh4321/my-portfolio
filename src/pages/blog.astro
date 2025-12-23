@@ -27,7 +27,7 @@ const blogPosts: BlogPost[] = await response.json();
 
   
 </Layout>
-   <script>
+   <!-- <script>
 type BlogPost = {
     title: string;
     description: string;
@@ -43,7 +43,7 @@ type BlogPost = {
 
         const blogPosts: BlogPost[] = await response.json();
         const container = document.getElementById('blog-posts');
-
+        console.log(container?.childElementCount)
         if (container && blogPosts.length > 0) {
           container.innerHTML = blogPosts.map(post => `
             <article>
@@ -64,7 +64,7 @@ type BlogPost = {
 
     // Optional: Run immediately if needed (in case event already fired)
     loadBlogPosts();
-  </script>
+  </script> -->
 
 <style>
   .posts-list{
